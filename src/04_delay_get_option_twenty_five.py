@@ -12,7 +12,6 @@ import csv
 import json
 import time
 import logging
-import urllib3
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from typing import Optional, Any, Dict, Tuple, List
@@ -128,7 +127,9 @@ class SecdefSearchResult:
 def setup_logging(config: Config) -> logging.Logger:
     logging.basicConfig(level=config.log_level, format=config.log_format)
     logger = logging.getLogger(__name__)
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    requests.packages.urllib3.disable_warnings(
+        requests.packages.urllib3.exceptions.InsecureRequestWarning
+    )
     return logger
 
 # ----------------------------------------------------------------------
@@ -609,8 +610,8 @@ def correct_put_greeks(contract: OptionContract) -> None:
 def main() -> int:
     """Main function - orchestrates the entire workflow."""
     if len(sys.argv) < 4:
-        print("Usage: python3 04_delay_get_option_twenteen_four.py <TICKER> <MONTHS> <MAX_PER_MONTH>")
-        print("Example: python3 04_delay_get_option_twenteen_four.py TREX 1 5")
+        print("Usage: python3 04_delay_get_option_twenty_teen_four.py <TICKER> <MONTHS> <MAX_PER_MONTH>")
+        print("Example: python3 04_delay_get_option_twenty_teen_four.py TREX 1 5")
         return 1
 
     ticker = sys.argv[1].upper()
